@@ -4,7 +4,6 @@
 - This `experimental` branch is for [beta tests](#beta-testexperimental-builds)/[continuous integration](https://google.com?q=continuous-integration-branch).
 # [Table of Contents](../README.md#table-of-contents)
 - [Purposes](#purposes)
-
 # Purposes
 [`./cxx/`](./) _C++_ implementations of posts
 - [`./cxx/Macros.hxx`](./Macros.hxx) is
@@ -13,17 +12,18 @@
   - macro constants, such as `SUSUWU_SH_<color>` (`color` = {`DEFAULT`, `BLACK`, `DARK_GRAY`, `RED`, `LIGHT_RED`, `GREEN`, `LIGHT_GREEN`, `BROWN`, `YELLOW`, `BLUE`, `LIGHT_BLUE`, `PURPLE`, `LIGHT_PURPLE`, `CYAN`, `LIGHT_CYAN`, `LIGHT_GRAY`, `WHITE`}, if supported, expands to the [_ANSI_ color](https://wikipedia.org/wiki/Ansi_color) codes, else expands to ""),
   - macro functions, such as {`SUSUWU_ERROR`, `SUSUWU_WARNING`, `SUSUWU_INFO`, `SUSUWU_SUCCESS`, which use `SUSUWU_PRINT`}, `SUSUWU_PRINT` (if `__cplusplus`, uses `SUSUWU_CERR`, else uses `SUSUWU_STDERRR`),
   - `macroTestsNoexcept()` (unit tests, with return value for errors).
+- [`./cxx/ClassFS.hxx`](./ClassFS.hxx) is
+  - `FilePath` (`PortableExecutable`'s constructor argument), `FileBytecode` (`classSha2`'s input argument), `FileHash` (`classSha2`'s return value)
 - [`./cxx/ClassObject.hxx`](./ClassObject.hxx) is
   - `class Instrumentation` (port of [`java.lang.instrument.Instrumentation`](https://docs.oracle.com/javase/8/docs/api/java/lang/instrument/Instrumentation.html)), `class Class : public Instrumentation` (port of [`java.lang.Class`](https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html)), `class Object : public Class` (port of [`java.lang.Object`](https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html)),
   - `classObjectTests()`, or `classObjectTestsNoexcept()` (unit tests with exceptions for errors, or return value for errors).
 - [`./cxx/ClassPortableExecutable.hxx`](./ClassPortableExecutable.hxx) is
-  - `FilePath` (`PortableExecutable`'s constructor argument), `FileBytecode` (`classSha2`'s input argument), `FileHash` (`classSha2`'s return value)
   - `class PortableExecutable : public Object` (stores file `path` and/or `bytecode` and/or `hex`code. TODO; `hash`?)
   - `class PortableExecutableBytecode : public PortableExecutable` loads `bytecode` from `path`. TODO; `hash`?
 - [`./cxx/ClassSys.hxx`](./ClassSys.hxx) is
   - typedefs {ClassSysUSeconds}
   - globals {classSysArgc, classSysArgs}
-  - modular functions to interact with: console (_Posix_ `/bin/sh` or _Windows_ `cmd``) {`classSysGetConsoleInput()`, `classSysSetConsoleInput()`}, own process {`classSysInit()`, `classSysGetOwnPath()`, `classSysFopenOwnPath()`, `templateCatchAll()`}, strings (or streams) {`classSysHexOs()`, `classSysHexStr()`, `classSysColoredParamOs()`, `classSysColoredParamStr()`}, the OS {`classSysUSecondClock()`, `execvesFork()`, `execvexFork()`, `execves()`, `execvex()`, `classSysHasRoot()`, `classSysSetRoot()`, `classSysKernelCallback()`, `classSysKernelSetHook()`}. TODO: filesystem (perhaps just have `cxx/ClassPortableExecutable.hxx` do this?), internet.
+  - modular functions to interact with: console (_Posix_ `/bin/sh` or _Windows_ `cmd``) {`classSysGetConsoleInput()`, `classSysSetConsoleInput()`}, own process {`classSysInit()`, `classSysGetOwnPath()`, `classSysFopenOwnPath()`, `templateCatchAll()`}, strings (or streams) {`classSysHexOs()`, `classSysHexStr()`, `classSysColoredParamOs()`, `classSysColoredParamStr()`}, the OS {`classSysUSecondClock()`, `execvesFork()`, `execvexFork()`, `execves()`, `execvex()`, `classSysHasRoot()`, `classSysSetRoot()`, `classSysKernelCallback()`, `classSysKernelSetHook()`}. TODO: filesystem (perhaps just have `./cxx/ClassPortableExecutable.hxx` do this?), internet.
   - `classSysTests()`, or `classSysTestsNoexcept()` (unit tests with exceptions for errors, or return value for errors).
 - [`./cxx/ClassSha2.hxx`](./ClassSha2.hxx) is
   - the `classSha2` function pointer, which defaults to `classSha256()` (but you can set `classSha2 = sha128;` or `classSha2 = sha512;`), wrapped around official _RFC6234_ code. `./cxx/ClassResultList.hxx`, `./cxx/VirusAnalysis.cxx` and `./cxx/AssistantCns.cxx` all use `classSha2`.

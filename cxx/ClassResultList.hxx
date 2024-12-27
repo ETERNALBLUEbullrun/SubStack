@@ -3,7 +3,7 @@
 #ifndef INCLUDES_cxx_ClassResultList_hxx
 #define INCLUDES_cxx_ClassResultList_hxx
 #include "ClassObject.hxx" /* Object SUSUWU_VIRTUAL_DEFAULTS() */
-#include "ClassPortableExecutable.hxx" /* FilePath FileBytecode FileHash */
+#include "ClassFS.hxx" /* FilePath FileBytecode FileHash */
 #include "ClassSha2.hxx" /* classSha2 */
 #include "ClassSys.hxx" /* classSysHexOs */
 #include "Macros.hxx" /* SUSUWU_IF_CPLUSPLUS SUSUWU_NOEXCEPT SUSUWU_OVERRIDE SUSUWU_PREFER_CSTR SUSUWU_UNIT_TESTS */

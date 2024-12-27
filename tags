@@ -138,9 +138,9 @@ Download	README.md	/^## Download$/;"	s	chapter:How to use this
 Errata/footnotes	SECURITY.md	/^## Errata\/footnotes$/;"	s	chapter:Security Policy
 Escrow	README.md	/^### Escrow$/;"	S	section:Contributor conventions/rules""Sponsor
 External resources	posts/TranscodeMuxHowto.md	/^# External resources$/;"	c
-FileBytecode	cxx/ClassPortableExecutable.hxx	/^typedef FilePath FileBytecode; \/* Uses `std::string` for bytecode (versus `std::vector`) becaus/;"	t	namespace:Susuwu	typeref:typename:FilePath
-FileHash	cxx/ClassPortableExecutable.hxx	/^typedef FilePath FileHash; \/* TODO: `std::unordered_set<std::basic_string<unsigned char>>` *\/$/;"	t	namespace:Susuwu	typeref:typename:FilePath
-FilePath	cxx/ClassPortableExecutable.hxx	/^typedef std::string FilePath; \/* TODO: `std::char_traits<unsigned char>`, `std::basic_string<un/;"	t	namespace:Susuwu	typeref:typename:std::string
+FileBytecode	cxx/ClassFS.hxx	/^typedef FilePath FileBytecode; \/* Uses `std::string` for bytecode (versus `std::vector`) becaus/;"	t	namespace:Susuwu	typeref:typename:FilePath
+FileHash	cxx/ClassFS.hxx	/^typedef FilePath FileHash; \/* TODO: `std::unordered_set<std::basic_string<unsigned char>>` *\/$/;"	t	namespace:Susuwu	typeref:typename:FilePath
+FilePath	cxx/ClassFS.hxx	/^typedef std::string FilePath; \/* TODO: `std::char_traits<unsigned char>`, `std::basic_string<un/;"	t	namespace:Susuwu	typeref:typename:std::string
 HASHCOUNT	c/rfc6234/shatest.c	/^#define HASHCOUNT /;"	d	file:
 HKDFContext	c/rfc6234/sha.h	/^typedef struct HKDFContext {$/;"	s
 HKDFContext	c/rfc6234/sha.h	/^} HKDFContext;$/;"	t	typeref:struct:HKDFContext
@@ -164,6 +164,7 @@ INCLUDES_cxx_AssistantCns_cxx	cxx/AssistantCns.cxx	/^#define INCLUDES_cxx_Assist
 INCLUDES_cxx_AssistantCns_hxx	cxx/AssistantCns.hxx	/^#define INCLUDES_cxx_AssistantCns_hxx$/;"	d
 INCLUDES_cxx_ClassCns_cxx	cxx/ClassCns.cxx	/^#define INCLUDES_cxx_ClassCns_cxx$/;"	d	file:
 INCLUDES_cxx_ClassCns_hxx	cxx/ClassCns.hxx	/^#define INCLUDES_cxx_ClassCns_hxx$/;"	d
+INCLUDES_cxx_ClassFS_hxx	cxx/ClassFS.hxx	/^#define INCLUDES_cxx_ClassFS_hxx$/;"	d
 INCLUDES_cxx_ClassObject_cxx	cxx/ClassObject.cxx	/^#define INCLUDES_cxx_ClassObject_cxx$/;"	d	file:
 INCLUDES_cxx_ClassObject_hxx	cxx/ClassObject.hxx	/^#define INCLUDES_cxx_ClassObject_hxx$/;"	d
 INCLUDES_cxx_ClassPortableExecutable_hxx	cxx/ClassPortableExecutable.hxx	/^#define INCLUDES_cxx_ClassPortableExecutable_hxx$/;"	d
@@ -574,6 +575,7 @@ Susuwu	cxx/AssistantCns.cxx	/^namespace Susuwu {$/;"	n	file:
 Susuwu	cxx/AssistantCns.hxx	/^namespace Susuwu {$/;"	n
 Susuwu	cxx/ClassCns.cxx	/^namespace Susuwu {$/;"	n	file:
 Susuwu	cxx/ClassCns.hxx	/^namespace Susuwu {$/;"	n
+Susuwu	cxx/ClassFS.hxx	/^namespace Susuwu {$/;"	n
 Susuwu	cxx/ClassObject.cxx	/^namespace Susuwu {$/;"	n	file:
 Susuwu	cxx/ClassObject.hxx	/^namespace Susuwu {$/;"	n
 Susuwu	cxx/ClassPortableExecutable.hxx	/^namespace Susuwu {$/;"	n

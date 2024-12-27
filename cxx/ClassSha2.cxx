@@ -1,7 +1,7 @@
 /* (C) 2024 Swudu Susuwu, dual licenses: choose [GPLv2](./LICENSE_GPLv2) or [Apache 2](./LICENSE), allows all uses. */
 #ifndef INCLUDES_cxx_ClassSha2_cxx
 #define INCLUDES_cxx_ClassSha2_cxx
-#include "ClassPortableExecutable.hxx" /* FileBytecode FileHash */
+#include "ClassFS.hxx" /* FileBytecode FileHash */
 #include "ClassSha2.hxx"
 #include "ClassSys.hxx" /* classSysHexStr classSysUSecondClock templateCatchAll */
 #include "Macros.hxx" /* SUSUWU_IF_CPLUSPLUS SUSUWU_NOEXCEPT SUSUWU_NOTICE_EXECUTE SUSUWU_INFO SUSUWU_NOTICE SUSUWU_SH_ERROR SUSUWU_UNIT_TESTS SUSUWU_WARNING */

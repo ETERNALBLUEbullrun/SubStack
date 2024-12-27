@@ -2,7 +2,7 @@
 #pragma once
 #ifndef INCLUDES_cxx_ClassSha2_hxx
 #define INCLUDES_cxx_ClassSha2_hxx
-#include "ClassPortableExecutable.hxx" /* FileBytecode FileHash */
+#include "ClassFS.hxx" /* FileBytecode FileHash */
 #include "Macros.hxx" /* SUSUWU_NOEXCEPT SUSUWU_UNIT_TESTS */
 namespace Susuwu {
 /* Uses https://www.rfc-editor.org/rfc/rfc6234#section-8.2.2 */
