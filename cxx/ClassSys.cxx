@@ -1,7 +1,7 @@
 /* (C) 2024 Swudu Susuwu, dual licenses: choose [GPLv2](./LICENSE_GPLv2) or [Apache 2](./LICENSE), allows all uses. */
 #ifndef INCLUDES_cxx_ClassSys_cxx
 #define INCLUDES_cxx_ClassSys_cxx
-#include "Macros.hxx" /* SUSUWU_ERRSTR SUSUWU_IF_CPLUSPLUS SUSUWU_NOEXCEPT SUSUWU_NOTICE SUSUWU_NULLPTR SUSUWU_POSIX SUSUWU_SH_ERROR SUSUWU_SH_PURPLE SUSUWU_UNIT_TESTS SUSUWU_WARNING SUSUWU_WIN32*/
+#include "Macros.hxx" /* SUSUWU_ERRSTR SUSUWU_IF_CPLUSPLUS SUSUWU_NOEXCEPT SUSUWU_NOTICE SUSUWU_NULLPTR SUSUWU_POSIX SUSUWU_SH_ERROR SUSUWU_SH_PURPLE SUSUWU_SH_WARNING SUSUWU_UNIT_TESTS SUSUWU_WARNING SUSUWU_WIN32*/
 #include "ClassSys.hxx" /* classSysHexStr classSysHexOs */
 #include SUSUWU_IF_CPLUSPLUS(<cassert>, <assert.h>) /* assert */
 #include SUSUWU_IF_CPLUSPLUS(<cerrno>, <errno.h>) /* errno */
@@ -35,6 +35,11 @@ const bool classSysInit(int argc, const char **args) {
 		assert(SUSUWU_NULLPTR != args[0]); /* `clangtidy` off: NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic) */
 		return true;
 	}
+#ifndef SUSUWU_SH_SKIP_COLORS
+	if(!classSysConsoleHasAnsiColors()) {
+		SUSUWU_WARNING("classSysInit() {(!classSysConsoleHasAnsiColors()) /* Command Sequence Introducers disabled */}");
+	}
+#endif /* ndef SUSUWU_SH_SKIP_COLORS */
 	return false;
 }
 
@@ -187,6 +192,37 @@ const unsigned char classSysGetConsoleAttributes() {
 #endif /* elif defined SUSUWU_POSIX else */
 	errno = ENOTTY;
 	return 0;
+}
+const bool classSysConsoleHasAnsiColors() {
+#ifdef __WIN32__
+# include <windows.h> /* CONSOLE_SCREEN_BUFFER_INFO DWORD GetConsoleMode GetStdHandle SetConsoleMode STD_OUTPUT_HANDLE */
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	if(INVALID_HANDLE_VALUE == hConsole) {
+		SUSUWU_PRINT(SUSUWU_SH_WARNING, "classSysConsoleHasAnsiColors() {!GetConsoleScreenBufferInfo()}, GetLastError(): " SUSUWU_SH_PURPLE + std::to_string(GetLastError()));
+		return false;
+	}
+	DWORD mode;
+	if(!GetConsoleMode(hConsole, &mode)) {
+		return false;
+	}
+	SetConsoleMode(hConsole, mode | ENABLE_VIRTUAL_TERMINAL_PROCESSING); /* virtual mode allows CSI colors */
+	return true;
+#elif defined _POSIX_VERSION
+	return true;
+#else
+	const char *term = getenv("TERM");
+	switch(std::string(term)) {
+		case "screen":
+		case "screen-256color":
+		case "vt100":
+		case "xterm":
+		case "xterm-256color":
+			return true;
+		/* case "dumb": */
+		default:
+			return false
+	}
+#endif
 }
 
 #if SUSUWU_UNIT_TESTS
