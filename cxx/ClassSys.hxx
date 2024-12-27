@@ -2,11 +2,9 @@
 #pragma once
 #ifndef INCLUDES_cxx_ClassSys_hxx
 #define INCLUDES_cxx_ClassSys_hxx
-#include "ClassFS.hxx" /* FilePath */
 #include "Macros.hxx" /* SUSUWU_ERROR SUSUWU_IF_CPLUSPLUS SUSUWU_NOEXCEPT SUSUWU_POSIX SUSUWU_UNIT_TESTS SUSUWU_WARNING */
-#include SUSUWU_IF_CPLUSPLUS(<cassert>, <assert.h>) /* assert */
+//#include SUSUWU_IF_CPLUSPLUS(<cassert>, <assert.h>) /* assert */
 #include <chrono> /* std::chrono */
-#include SUSUWU_IF_CPLUSPLUS(<cstdio>, <stdio.h>) /* FILE fopen */
 #include <exception> /* std::exception */
 #include <iomanip> /* std::setw */
 #include <ios> /* std::dec std::hex std::streamsize */
@@ -20,7 +18,7 @@ typedef int pid_t;
 #endif
 #include <type_traits> /* std::remove_const */
 #include <vector> /* std::vector */
-/* Abstractions to do with: `sh` scripts (such as: exec*, sudo), sockets (TODO), filesystems (TODO) */
+/* Abstractions to do with: `sh` scripts (such as: `exec*`, `sudo`), sockets (such as `socket`, `WinSock2`) */
 namespace Susuwu {
 extern int classSysArgc;
 extern const char **classSysArgs;
@@ -70,12 +68,6 @@ const bool classSysKernelSetHook(Func func, Lambda callback) {
 	}
 	return false;
 }
-
-/* Filesystems */
-/* Usage: for Linux (or Windows,) if you don't trust `argv[0]`, replace it with `classSysGetOwnPath()`.
- * Error values: `return FilePath();` */
-const FilePath classSysGetOwnPath() /* TODO: SUSUWU_NOEXCEPT(std::is_nothrow_constructible<FilePath>::value) */;
-const FILE *classSysFopenOwnPath() /* TODO: SUSUWU_NOEXCEPT(std::is_nothrow_invocable<classSysGetFilePath()>::value) */;
 
 static const bool classSysGetConsoleInput() { return std::cin.good() && !std::cin.eof(); }
 const bool classSysSetConsoleInput(bool input); /* Set to `false` for unit tests/background tasks (acts as if user pressed `<ctrl>+d`, thus input prompts will use default choices.) Returns `classSysGetConsoleInput();` */

@@ -164,6 +164,7 @@ INCLUDES_cxx_AssistantCns_cxx	cxx/AssistantCns.cxx	/^#define INCLUDES_cxx_Assist
 INCLUDES_cxx_AssistantCns_hxx	cxx/AssistantCns.hxx	/^#define INCLUDES_cxx_AssistantCns_hxx$/;"	d
 INCLUDES_cxx_ClassCns_cxx	cxx/ClassCns.cxx	/^#define INCLUDES_cxx_ClassCns_cxx$/;"	d	file:
 INCLUDES_cxx_ClassCns_hxx	cxx/ClassCns.hxx	/^#define INCLUDES_cxx_ClassCns_hxx$/;"	d
+INCLUDES_cxx_ClassFS_cxx	cxx/ClassFS.cxx	/^#define INCLUDES_cxx_ClassFS_cxx$/;"	d	file:
 INCLUDES_cxx_ClassFS_hxx	cxx/ClassFS.hxx	/^#define INCLUDES_cxx_ClassFS_hxx$/;"	d
 INCLUDES_cxx_ClassObject_cxx	cxx/ClassObject.cxx	/^#define INCLUDES_cxx_ClassObject_cxx$/;"	d	file:
 INCLUDES_cxx_ClassObject_hxx	cxx/ClassObject.hxx	/^#define INCLUDES_cxx_ClassObject_hxx$/;"	d
@@ -575,6 +576,7 @@ Susuwu	cxx/AssistantCns.cxx	/^namespace Susuwu {$/;"	n	file:
 Susuwu	cxx/AssistantCns.hxx	/^namespace Susuwu {$/;"	n
 Susuwu	cxx/ClassCns.cxx	/^namespace Susuwu {$/;"	n	file:
 Susuwu	cxx/ClassCns.hxx	/^namespace Susuwu {$/;"	n
+Susuwu	cxx/ClassFS.cxx	/^namespace Susuwu {$/;"	n	file:
 Susuwu	cxx/ClassFS.hxx	/^namespace Susuwu {$/;"	n
 Susuwu	cxx/ClassObject.cxx	/^namespace Susuwu {$/;"	n	file:
 Susuwu	cxx/ClassObject.hxx	/^namespace Susuwu {$/;"	n
@@ -670,6 +672,7 @@ __anona3432b6d0111	cxx/Macros.cxx	/^namespace { \/* [misc-use-anonymous-namespac
 __anoncf2b51e20103	c/rfc6234/sha.h	/^enum {$/;"	g
 __anoncf2b51e20203	c/rfc6234/sha.h	/^enum {$/;"	g
 __anoncf2b51e2030a	c/rfc6234/sha.h	/^		union {$/;"	u	struct:USHAContext
+__anond337a4370111	cxx/ClassFS.cxx	/^namespace { \/* [misc-use-anonymous-namespace] *\/$/;"	n	namespace:Susuwu	file:
 __anond9b948bd0108	c/rfc6234/shatest.c	/^		struct {$/;"	s	struct:hash	file:
 __anonf22f36750111	cxx/ClassObject.cxx	/^namespace { \/* [misc-use-anonymous-namespace] *\/$/;"	n	namespace:Susuwu	file:
 `git`	README.md	/^## `git`$/;"	s	chapter:Contributor conventions/rules
@@ -705,6 +708,10 @@ bytecode	cxx/ClassPortableExecutable.hxx	/^	FileBytecode bytecode; \/* compiled 
 bytecodes	cxx/ClassResultList.hxx	/^	Bytecodes bytecodes; \/* Whole executables (for `VirusAnalysis`) or webpages (for `AssistantCns/;"	m	struct:Susuwu::ResultList	typeref:typename:Bytecodes
 ch	resources/nonprintable.c	/^void print_character_with_color(unsigned char ch) {$/;"	v	typeref:typename:unsigned char
 checkmatch	c/rfc6234/shatest.c	/^int checkmatch(const unsigned char *hashvalue,$/;"	f	typeref:typename:int
+classFSFopenOwnPath	cxx/ClassFS.cxx	/^const FILE *classFSFopenOwnPath() {$/;"	f	namespace:Susuwu	typeref:typename:const FILE *
+classFSGetOwnPath	cxx/ClassFS.cxx	/^const FilePath classFSGetOwnPath() {$/;"	f	namespace:Susuwu	typeref:typename:const FilePath
+classFSTests	cxx/ClassFS.cxx	/^const bool classFSTests() {$/;"	f	namespace:Susuwu	typeref:typename:const bool
+classFSTestsNoexcept	cxx/ClassFS.cxx	/^const bool classFSTestsNoexcept() SUSUWU_NOEXCEPT { return templateCatchAll(classFSTests, "class/;"	f	namespace:Susuwu	typeref:typename:const bool
 classIsValid	cxx/ClassObject.cxx	/^static const bool classIsValid(const Class *clas) {$/;"	f	namespace:Susuwu::__anonf22f36750111	typeref:typename:const bool	file:
 classObjectTests	cxx/ClassObject.cxx	/^const bool classObjectTests() {$/;"	f	namespace:Susuwu	typeref:typename:const bool
 classObjectTestsNoexcept	cxx/ClassObject.cxx	/^const bool classObjectTestsNoexcept() SUSUWU_NOEXCEPT { return templateCatchAll(classObjectTests/;"	f	namespace:Susuwu	typeref:typename:const bool
@@ -722,9 +729,7 @@ classSysArgs	cxx/ClassSys.cxx	/^const char **classSysArgs = {SUSUWU_NULLPTR};$/;
 classSysArgs	examples/stdspan.cxx	/^char **classSysArgs = argv;$/;"	v	typeref:typename:char **
 classSysColoredParamOs	cxx/ClassSys.hxx	/^inline Os &classSysColoredParamOs(Os &os, const List &argvS, const bool parenthesis\/* {...} *\//;"	f	namespace:Susuwu	typeref:typename:Os &
 classSysColoredParamStr	cxx/ClassSys.hxx	/^inline const typename List::value_type classSysColoredParamStr(const List &argvS, const bool par/;"	f	namespace:Susuwu	typeref:typename:const typename List::value_type
-classSysFopenOwnPath	cxx/ClassSys.cxx	/^const FILE *classSysFopenOwnPath() {$/;"	f	namespace:Susuwu	typeref:typename:const FILE *
 classSysGetConsoleInput	cxx/ClassSys.hxx	/^static const bool classSysGetConsoleInput() { return std::cin.good() && !std::cin.eof(); }$/;"	f	namespace:Susuwu	typeref:typename:const bool
-classSysGetOwnPath	cxx/ClassSys.cxx	/^const FilePath classSysGetOwnPath() {$/;"	f	namespace:Susuwu	typeref:typename:const FilePath
 classSysHasRoot	cxx/ClassSys.cxx	/^const bool classSysHasRoot() {$/;"	f	namespace:Susuwu	typeref:typename:const bool
 classSysHexOs	cxx/ClassSys.hxx	/^inline Os &classSysHexOs(Os &os, const Str &value) {$/;"	f	namespace:Susuwu	typeref:typename:Os &
 classSysHexStr	cxx/ClassSys.hxx	/^inline const Str classSysHexStr(const Str &value) {$/;"	f	namespace:Susuwu	typeref:typename:const Str
@@ -975,14 +980,15 @@ straceOutputsAnalysis	cxx/VirusAnalysis.cxx	/^const VirusAnalysisResult straceOu
 stracePotentialDangers	cxx/VirusAnalysis.cxx	/^std::vector<std::string> stracePotentialDangers = {"write(*)"};$/;"	v	namespace:Susuwu	typeref:typename:std::vector<std::string>
 supportsVT100	resources/colorDetect.cxx	/^bool supportsVT100() {$/;"	f	typeref:typename:``````bool
 susuwuUnitTests	cxx/main.cxx	/^const SusuwuUnitTestsBitmask susuwuUnitTests() {$/;"	f	typeref:typename:const SusuwuUnitTestsBitmask
-susuwuUnitTestsAssistantCnsBit	cxx/main.hxx	/^static const int susuwuUnitTestsAssistantCnsBit    = 1 << 7; \/* 128: `AssistantCns.hxx`:`assist/;"	v	typeref:typename:const int
-susuwuUnitTestsClassObjectBit	cxx/main.hxx	/^static const int susuwuUnitTestsClassObjectBit     = 1 << 1; \/*   2: `ClassObjects.hxx`:`classO/;"	v	typeref:typename:const int
-susuwuUnitTestsClassResultListBit	cxx/main.hxx	/^static const int susuwuUnitTestsClassResultListBit = 1 << 5; \/*  32: `ClassResultList.hxx`:`cla/;"	v	typeref:typename:const int
-susuwuUnitTestsClassSha2Bit	cxx/main.hxx	/^static const int susuwuUnitTestsClassSha2Bit       = 1 << 4; \/*  16: `ClassSha2.hxx`:`classSha2/;"	v	typeref:typename:const int
-susuwuUnitTestsClassSysBit	cxx/main.hxx	/^static const int susuwuUnitTestsClassSysBit        = 1 << 3; \/*   8: `ClassSys.hxx`:`classSysTe/;"	v	typeref:typename:const int
-susuwuUnitTestsConsoleBit	cxx/main.hxx	/^static const int susuwuUnitTestsConsoleBit         = 1 << 2; \/*   4: `ClassSys.hxx`:`classSysSe/;"	v	typeref:typename:const int
-susuwuUnitTestsMacrosBit	cxx/main.hxx	/^static const int susuwuUnitTestsMacrosBit          = 1 << 0; \/*   1: `Macros.hxx`:`macrosTestsN/;"	v	typeref:typename:const int
-susuwuUnitTestsVirusAnalysisBit	cxx/main.hxx	/^static const int susuwuUnitTestsVirusAnalysisBit   = 1 << 6; \/*  64: `VirusAnalysis.hxx`:`virus/;"	v	typeref:typename:const int
+susuwuUnitTestsAssistantCnsBit	cxx/main.hxx	/^static const int susuwuUnitTestsAssistantCnsBit =$/;"	v	typeref:typename:const int
+susuwuUnitTestsClassFSBit	cxx/main.hxx	/^static const int susuwuUnitTestsClassFSBit =$/;"	v	typeref:typename:const int
+susuwuUnitTestsClassObjectBit	cxx/main.hxx	/^static const int susuwuUnitTestsClassObjectBit =$/;"	v	typeref:typename:const int
+susuwuUnitTestsClassResultListBit	cxx/main.hxx	/^static const int susuwuUnitTestsClassResultListBit =$/;"	v	typeref:typename:const int
+susuwuUnitTestsClassSha2Bit	cxx/main.hxx	/^static const int susuwuUnitTestsClassSha2Bit =$/;"	v	typeref:typename:const int
+susuwuUnitTestsClassSysBit	cxx/main.hxx	/^static const int susuwuUnitTestsClassSysBit =$/;"	v	typeref:typename:const int
+susuwuUnitTestsConsoleBit	cxx/main.hxx	/^static const int susuwuUnitTestsConsoleBit =$/;"	v	typeref:typename:const int
+susuwuUnitTestsMacrosBit	cxx/main.hxx	/^static const int susuwuUnitTestsMacrosBit =$/;"	v	typeref:typename:const int
+susuwuUnitTestsVirusAnalysisBit	cxx/main.hxx	/^static const int susuwuUnitTestsVirusAnalysisBit =$/;"	v	typeref:typename:const int
 syscallPotentialDangers	cxx/VirusAnalysis.cxx	/^std::vector<std::string> syscallPotentialDangers = {$/;"	v	namespace:Susuwu	typeref:typename:std::vector<std::string>
 templateCatchAll	cxx/ClassSys.hxx	/^auto templateCatchAll(Func func, const std::string &funcName, Args... args) -> const decltype(fu/;"	f	namespace:Susuwu	typeref:typename:const decltype(func (args...))
 templateWorkaround	cxx/ClassCns.hxx	/^#define templateWorkaround(/;"	d
