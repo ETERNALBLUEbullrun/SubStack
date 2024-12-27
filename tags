@@ -729,6 +729,19 @@ classSysArgs	cxx/ClassSys.cxx	/^const char **classSysArgs = {SUSUWU_NULLPTR};$/;
 classSysArgs	examples/stdspan.cxx	/^char **classSysArgs = argv;$/;"	v	typeref:typename:char **
 classSysColoredParamOs	cxx/ClassSys.hxx	/^inline Os &classSysColoredParamOs(Os &os, const List &argvS, const bool parenthesis\/* {...} *\//;"	f	namespace:Susuwu	typeref:typename:Os &
 classSysColoredParamStr	cxx/ClassSys.hxx	/^inline const typename List::value_type classSysColoredParamStr(const List &argvS, const bool par/;"	f	namespace:Susuwu	typeref:typename:const typename List::value_type
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+classSysFopenOwnPath	cxx/ClassSys.cxx	/^const FILE *classSysFopenOwnPath() {$/;"	f	namespace:Susuwu	typeref:typename:const FILE *
+<<<<<<< HEAD
+=======
+classSysConsoleHasAnsiColors	cxx/ClassSys.cxx	/^const bool classSysConsoleHasAnsiColors() {$/;"	f	namespace:Susuwu	typeref:typename:const bool
+classSysGetConsoleAttributes	cxx/ClassSys.cxx	/^const unsigned char classSysGetConsoleAttributes() {$/;"	f	namespace:Susuwu	typeref:typename:const unsigned char
+>>>>>>> 2005fb2 (-`classSysGetOwnPath()`; +`classFSGetOwnPath()`.)
+=======
+classSysGetConsoleAttributes	cxx/ClassSys.cxx	/^const unsigned char classSysGetConsoleAttributes() {$/;"	f	namespace:Susuwu	typeref:typename:const unsigned char
+>>>>>>> 0538876 (+`cxx/ClassSys.*xx:classSysGetConsoleAttributes()`)
+>>>>>>> cd5486d (+`cxx/ClassSys.*xx:classSysGetConsoleAttributes()`)
 classSysGetConsoleInput	cxx/ClassSys.hxx	/^static const bool classSysGetConsoleInput() { return std::cin.good() && !std::cin.eof(); }$/;"	f	namespace:Susuwu	typeref:typename:const bool
 classSysHasRoot	cxx/ClassSys.cxx	/^const bool classSysHasRoot() {$/;"	f	namespace:Susuwu	typeref:typename:const bool
 classSysHexOs	cxx/ClassSys.hxx	/^inline Os &classSysHexOs(Os &os, const Int &value) {$/;"	f	namespace:Susuwu	typeref:typename:Os &
