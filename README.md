@@ -68,7 +68,9 @@
 All have lots of [issues](https://github.com/SwuduSusuwu/SubStack/issues) which you can contribute to, or can request that more resources go to).
 
 [`./hooks/`](./hooks) is `git` scripts ([`man githooks`](https://git-scm.com/docs/githooks)) which assist you; install with `cp -ra ./hooks/* ./.git/hooks/`.
-- [`./hooks/pre-commit`](./hooks/pre-commit) is [`.git/hooks/pre-commit.sample` (scans for non-ASCII filenames, conflict markers or whitespace errors)](https://github.com/auth0/gitzero/blob/master/tests/example/_git/hooks/pre-commit.sample)
+- [`./hooks/pre-commit`](./hooks/pre-commit) is [custom `pre-commit`](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks) (produces `./tags`) + [`.git/hooks/pre-commit.sample` (scans for non-ASCII filenames, conflict markers or whitespace errors)](https://github.com/auth0/gitzero/blob/master/tests/example/_git/hooks/pre-commit.sample)
+
+[`./tags`](./tags) is [an _IntelliSense_ alternative for editors such as `vim`](https://vi.stackexchange.com/a/45044) (stores data for [autocompletion use](https://vim.fandom.com/wiki/Any_word_completion), or to [jump to declarations through tags](https://dev.to/iggredible/how-to-use-tags-in-vim-to-jump-to-definitions-quickly-2g28)). Included for systems without [`ctags`](https://github.com/universal-ctags/ctags?tab=readme-ov-file#universal-ctags) (which produces this).
 
 [`./Macros.sh`](./Macros.sh) is a modular `./bin/sh` script with functions which `./build.sh` uses.
 

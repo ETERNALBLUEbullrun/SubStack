@@ -1,4 +1,10 @@
 #!/bin/sh
+#
+# This is [custom `pre-commit` (produces `./tags`)](https://github.com/SwuduSusuwu/SubStack/hooks/pre-commit) + [default pre-commit (scans for non-ASCII filenames, conflict markers or whitespace errors)](../.git/hooks/pre-commit.sample)
+GIT_ROOT="$(dirname $(git rev-parse --git-dir))/" #`git` does not set `${GIT_DIR}`, nor `${GIT_WORK_TREE}`
+. "${GIT_ROOT}/Macros.sh"
+SUSUWU_BUILD_CTAGS && git add "${GIT_ROOT}/tags"
+
 git config core.whitespace -blank-at-eof
 # An example hook script to verify what is about to be committed.
 # Called by "git commit" with no arguments.  The hook should
