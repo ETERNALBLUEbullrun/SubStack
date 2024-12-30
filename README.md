@@ -18,6 +18,7 @@
     - [_C_/_C++_ source](#cc-source)
   - [Sponsor](#sponsor)
     - [Escrow](#escrow)
+    - [Affiliates](#affiliates)
 
 # Purposes
 [`./.ssh/`](./.ssh/) is to [compute signatures/certificates](#signaturecertificate).
@@ -280,4 +281,6 @@ If you want proof that your crypto/cash will go to produce specific systems, use
 - If none of those issues match what you want, you can [post your own issue](https://github.com/SwuduSusuwu/SubStack/issues/new) for this.
 - Ensure that the **escrow** contract includes specifics as to what will count as "issue closed" [to the **escrow** service (so you do not have to trust the author),](https://wikipedia.org/wiki/Online_dispute_resolution) which will release the crypto/cash (once the **escrow** service considers your issue as closed).
   - For example; "The **source code** (through `./build.sh`), must produce a **system** (a **shared object** or **executable**) which uses just half of the training data to [setup its neural network, which must produce virtual synapses](https://wikipedia.org/wiki/Backpropagation) which the **system** [uses to produce **accurate** results](https://wikipedia.org/wiki/Residual_neural_network#Forward_propagation) on the other half, where **accurate** (for [classifiers](https://wikipedia.org/wiki/Learning_classifier_system)) is less than 2% false negatives and less than 2% false positives, and **accurate** (for [generators](https://wikipedia.org/wiki/Generative_artificial_intelligence)) is [divergence](https://wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence) of less than 2%." is a contract which an **escrow** can use for [issue #6](https://github.com/SwuduSusuwu/SubStack/issues/6).
+### Affiliates
+You can use [_Capital 1_'s affiliate program](https://i.capitalone.com/JgR02Y4pE), per year, to reward us with up to $500 to encourage the production of more source codes.
 

@@ -7,6 +7,7 @@
 - [Post, with resources](#post-with-resources)
   - [Neural resources](#neural-resources)
 - [Synopsis + related posts](#synopsis--related-posts)
+- [Sponsor this](../README.md#sponsor)
 # Intro
 Static analysis + sandbox + CNS = 1 second (approx) analysis of **new executables** (secures all app launches,) but after first launch: **caches** reduce this to **less than 1ms** (just cost to compute `caches.at(classSha2(FileBytecode()))`, where `caches` is `std::map<ResultListHash, VirusAnalysisResult>` or `ResultList::hashes`).
 

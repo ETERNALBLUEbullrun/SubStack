@@ -101,6 +101,7 @@ ADDTO4_temp2	c/rfc6234/sha384-512.c	/^static uint32_t ADDTO4_temp, ADDTO4_temp2;
 Abstract	resources/inheritance.cxx	/^    Abstract(Abstract&& other) noexcept : vec(std::move(other.vec)) {$/;"	f	class:Abstract	file:
 Abstract	resources/inheritance.cxx	/^    Abstract(const Abstract& other) : vec(other.vec) {$/;"	f	class:Abstract	file:
 Abstract	resources/inheritance.cxx	/^class Abstract {$/;"	c	file:
+Affiliates	README.md	/^### Affiliates$/;"	S	section:Contributor conventions/rules""Sponsor
 ApxrCns	cxx/ClassCns.cxx	/^typedef class ApxrCns : Cns {$/;"	c	class:Susuwu::HsomCns	file:
 ApxrCns	cxx/ClassCns.cxx	/^} ApxrCns;$/;"	t	class:Susuwu::HsomCns	typeref:class:Susuwu::HsomCns::ApxrCns	file:
 ApxrCns	cxx/ClassCns.hxx	/^typedef class ApxrCns : public Cns {$/;"	c	namespace:Susuwu
