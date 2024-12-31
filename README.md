@@ -67,6 +67,8 @@
 - [`./cxx/main.hxx`](./cxx/main.hxx) is `SusuwuUnitTestsBitmask main()` (executes all of those `*TestsNoexcept()` unit tests into a bitmask return value.)
 All have lots of [issues](https://github.com/SwuduSusuwu/SubStack/issues) which you can contribute to, or can request that more resources go to).
 
+[`./hooks/`](./hooks) is `git` scripts ([`man githooks`](https://git-scm.com/docs/githooks)) which assist you; install with `cp -ra ./hooks/* ./.git/hooks/`.
+- [`./hooks/pre-commit`](./hooks/pre-commit) is [`.git/hooks/pre-commit.sample` (scans for non-ASCII filenames, conflict markers or whitespace errors)](https://github.com/auth0/gitzero/blob/master/tests/example/_git/hooks/pre-commit.sample)
 
 [`./Macros.sh`](./Macros.sh) is a modular `./bin/sh` script with functions which `./build.sh` uses.
 
