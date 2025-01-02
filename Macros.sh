@@ -60,6 +60,9 @@ SUSUWU_SH_SUCCESS="[${SUSUWU_SH_GREEN}Success: ${SUSUWU_SH_WHITE}"
 SUSUWU_SH_NOTICE="[${SUSUWU_SH_BLUE}Notice: ${SUSUWU_SH_WHITE}"
 SUSUWU_SH_DEBUG="[${SUSUWU_SH_BLUE}Debug: ${SUSUWU_SH_WHITE}"
 SUSUWU_SH_CLOSE_="${SUSUWU_SH_DEFAULT}]"
+SUSUWU_SH_COLOR() ( #/* Usage: `SUSUWU_COLOR_MESSAGE "${SUSUWU_SH_<color>}" "message"` */
+	echo "${1}${2}${SUSUWU_SH_DEFAULT}"
+)
 SUSUWU_S=false
 SUSUWU_VERBOSE=false
 SUSUWU_PROCESS_S() { #/* Usage: `SUSUWU_PROCESS_S $@`. [This processes params passed to `${0}`.] */
@@ -159,14 +162,14 @@ SUSUWU_SETUP_CXX() { #/* Usage: ... [SUSUWU_PROCESS_MINGW $@] SUSUWU_SETUP_CXX [
 
 SUSUWU_PROCESS_RELEASE_DEBUG() { #/* Usage: `SUSUWU_PROCESS_RELEASE_DEBUG $@` [This processes params passed to `${0}`.] */
 	if [ "--release" = "${1}" ] || [ "--release" = "${2}" ]; then
-		SUSUWU_PRINT "${SUSUWU_SH_NOTICE}" "\`${0}${CROSS_COMP} --release\` does not support profilers/debuggers (use \`${0}${CROSS_COMP} --debug\` for this)."
+		SUSUWU_PRINT "${SUSUWU_SH_NOTICE}" "\`${0}${CROSS_COMP} $(SUSUWU_SH_COLOR "${SUSUWU_SH_CYAN}" "--release")\` does not support profilers/debuggers (use \`${0}${CROSS_COMP} $(SUSUWU_SH_COLOR "${SUSUWU_SH_GREEN}" "--debug")\` for this)."
 		CFLAGS="${CFLAGS} ${FLAGS_RELEASE} ${CFLAGS_RELEASE}"
 		CXXFLAGS="${CXXFLAGS} ${FLAGS_RELEASE} ${CXXFLAGS_RELEASE}"
 	else
 		if [ "--debug" != "${1}" ] && [ "--debug" != "${2}" ]; then
-			SUSUWU_PRINT "${SUSUWU_SH_NOTICE}" "\`${0}${CROSS_COMP}\` defaults to \`${0}${CROSS_COMP} --debug\`."
+			SUSUWU_PRINT "${SUSUWU_SH_NOTICE}" "\`${0}${CROSS_COMP}\` defaults to \`${0}${CROSS_COMP} $(SUSUWU_SH_COLOR "${SUSUWU_SH_CYAN}" "--debug")\`."
 		fi
-		SUSUWU_PRINT "${SUSUWU_SH_NOTICE}" "Use \`${0}${CROSS_COMP} --release\` to improve how fast this executes."
+		SUSUWU_PRINT "${SUSUWU_SH_NOTICE}" "Use \`${0}${CROSS_COMP} $(SUSUWU_SH_COLOR "${SUSUWU_SH_GREEN}" "--release")\` to improve how fast this executes."
 		CFLAGS="${CFLAGS} ${FLAGS_DEBUG} ${CFLAGS_DEBUG}"
 		CXXFLAGS="${CXXFLAGS} ${FLAGS_DEBUG} ${CXXFLAGS_DEBUG}"
 		if [ true = ${USE_FSAN} ]; then
@@ -229,18 +232,18 @@ SUSUWU_CLEAN_OUTPUT_IMPL() ( #/* Usage: `SUSUWU_CLEAN_OUTPUT_IMPL "Reason to cle
 	rm "${BINDIR}"*.out 2>/dev/null
 )
 SUSUWU_CLEAN_OUTPUT() { #/* Usage: `SUSUWU_REBUILD_OUTPUT "Reason to clean" */
-	SUSUWU_CLEAN_OUTPUT_IMPL "${1}" ", plus exit. [Use \`${0}${CROSS_COMP} --rebuild\` to remove plus continue.]"
+	SUSUWU_CLEAN_OUTPUT_IMPL "${1}" ", plus exit. [Use \`${0}${CROSS_COMP} $(SUSUWU_SH_COLOR "${SUSUWU_SH_GREEN}" "--rebuild")\` to remove plus continue.]"
 	exit 0
 }
 SUSUWU_REBUILD_OUTPUT() ( #/* Usage: `SUSUWU_REBUILD_OUTPUT "Reason to rebuild" */
-	SUSUWU_CLEAN_OUTPUT_IMPL "${1}" ", plus continue. [Use \`${0}${CROSS_COMP} --clean\` to remove plus exit.]"
+	SUSUWU_CLEAN_OUTPUT_IMPL "${1}" ", plus continue. [Use \`${0}${CROSS_COMP} $(SUSUWU_SH_COLOR "${SUSUWU_SH_GREEN}" "--clean")\` to remove plus exit.]"
 )
 SUSUWU_PROCESS_CLEAN_REBUILD() { #/* Usage: `SUSUWU_PROCESS_CLEAN_REBUILD $@` [This processes params passed to `${0}`.] */
 	if [ "--clean" = "${1}" ] || [ "--clean" = "${2}" ]; then
-		SUSUWU_CLEAN_OUTPUT "Was called with \`${0}${CROSS_COMP} --clean\`"
+		SUSUWU_CLEAN_OUTPUT "Was called with \`${0}${CROSS_COMP} $(SUSUWU_SH_COLOR "${SUSUWU_SH_CYAN}" "--clean")\`"
 	fi
 	if [ "--rebuild" = "${1}" ] || [ "--rebuild" = "${2}" ]; then
-		SUSUWU_REBUILD_OUTPUT "Was called with \`${0}${CROSS_COMP} --rebuild\`"
+		SUSUWU_REBUILD_OUTPUT "Was called with \`${0}${CROSS_COMP} $(SUSUWU_SH_COLOR "${SUSUWU_SH_CYAN}" "--rebuild")\`"
 	fi
 }
 
@@ -311,7 +314,7 @@ SUSUWU_BUILD_EXECUTABLE() { #/* Usage: ... [SUSUWU_PROCESS_MINGW $@] SUSUWU_SETU
 	elif [ 0 -eq ${SUSUWU_STATUS} ]; then
 		SUSUWU_PRINT "${SUSUWU_SH_SUCCESS}" "produced \`${BINDIR}${OUTPUT}\` ($(stat -c%s "${BINDIR}${OUTPUT}") bytes)."
 	else
-		SUSUWU_PRINT "${SUSUWU_SH_ERROR}" "\`${LD}\` returned status code ${SUSUWU_STATUS}. [If errors include \"ld... unknown file type\" or \"ld... undefined symbol __asan_*\", use \`${0}${CROSS_COMP} --rebuild\` to remove plus continue.]"
+		SUSUWU_PRINT "${SUSUWU_SH_ERROR}" "\`${LD}\` returned status code ${SUSUWU_STATUS}. [If errors include \"ld... $(SUSUWU_SH_COLOR "${SUSUWU_SH_RED}" "unknown file type")\" or \"ld... $(SUSUWU_SH_COLOR "${SUSUWU_SH_RED}" "undefined symbol __asan_")*\", use \`${0}${CROSS_COMP} $(SUSUWU_SH_COLOR "${SUSUWU_SH_GREEN}" "--rebuild")\` to remove plus continue.]"
 	fi
 	return ${SUSUWU_STATUS}
 }
