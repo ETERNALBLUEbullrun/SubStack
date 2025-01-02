@@ -1,8 +1,17 @@
 #!/bin/sh
 #/* (C) 2024 Swudu Susuwu, dual licenses: choose [_GPLv2_](./LICENSE_GPLv2) or [_Apache 2_](./LICENSE) (allows all uses). */
-#/* TODO: [produce `for OPTION in @$; do` loops for all `SUSUWU_PROCESS_*` functions.](https://github.com/SwuduSusuwu/SubStack/issues/22) */
 #/* TODO: [produce alias (such as {`--silent`, `--quiet`} -> `-s`) groups of options/flags, for `SUSUWU_PROCESS_*` functions.](https://github.com/SwuduSusuwu/SubStack/issues/23) */
 #/* TODO: [map options/flags (which `SUSUWU_PROCESS_*` functions use) to descriptions (for `--help` output.)](https://github.com/SwuduSusuwu/SubStack/issues/24) */
+SUSUWU_ORIGINAL_PARAMS="$*" #/* For functions which are not passed `$@` */
+SUSUWU_PROCESS_PARAMS() ( #/* Usage: `if SUSUWU_PROCESS_PARAMS "--param" $@;`. [This processes params passed to `${0}`.] */
+	PARAM=${1}; shift;
+	for PARAM_W in "$@"; do
+		if [ "${PARAM}" = "${PARAM_W}" ]; then
+			return 0
+		fi
+	done
+	return 1
+)
 SUSUWU_DIR_SUFFIX_SLASH() ( #/* Usage: `OBJDIR=$(SUSUWU_ENSURE_DIR_SLASH "${OBJDIR}") */
 	DIR=${1}
 	if [ "${DIR}" = "${DIR%/}" ]; then #/* "%/" removes slash; if equal after this, original doesn't have '/'. */
@@ -66,12 +75,12 @@ SUSUWU_SH_COLOR() ( #/* Usage: `SUSUWU_COLOR_MESSAGE "${SUSUWU_SH_<color>}" "mes
 SUSUWU_S=false
 SUSUWU_VERBOSE=false
 SUSUWU_PROCESS_S() { #/* Usage: `SUSUWU_PROCESS_S $@`. [This processes params passed to `${0}`.] */
-	if [ "-s" = "${1}" ] || [ "-s" = "${2}" ]; then
+	if SUSUWU_PROCESS_PARAMS "-s" "$@"; then
 		SUSUWU_S=true
 	fi
 }
 SUSUWU_PROCESS_VERBOSE() { #/* Usage: `SUSUWU_PROCESS_VERBOSE $@`. [This processes params passed to `${0}`.] */
-	if [ "--verbose" = "${1}" ] || [ "--verbose" = "${2}" ]; then
+	if SUSUWU_PROCESS_PARAMS "--verbose" "$@"; then
 		SUSUWU_VERBOSE=true
 		set -x
 	fi
@@ -112,7 +121,7 @@ SUSUWU_PRODUCTION_USE() ( #/* Usage: `SUSUWU_PRODUCTION_USE` */
 )
 SUSUWU_PROCESS_MINGW() { #/* Usage: `SUSUWU_PROCESS_MINGW $@` [This processes params passed to `${0}`.] */
 	CROSS_COMP=""
-	if [ "--mingw" = "${1}" ] || [ "--mingw" = "${2}" ]; then
+	if SUSUWU_PROCESS_PARAMS "--mingw" "$@"; then
 		CROSS_COMP=" --mingw"
 	fi
 }
@@ -161,12 +170,12 @@ SUSUWU_SETUP_CXX() { #/* Usage: ... [SUSUWU_PROCESS_MINGW $@] SUSUWU_SETUP_CXX [
 }
 
 SUSUWU_PROCESS_RELEASE_DEBUG() { #/* Usage: `SUSUWU_PROCESS_RELEASE_DEBUG $@` [This processes params passed to `${0}`.] */
-	if [ "--release" = "${1}" ] || [ "--release" = "${2}" ]; then
+	if SUSUWU_PROCESS_PARAMS "--release" "$@"; then
 		SUSUWU_PRINT "${SUSUWU_SH_NOTICE}" "\`${0}${CROSS_COMP} $(SUSUWU_SH_COLOR "${SUSUWU_SH_CYAN}" "--release")\` does not support profilers/debuggers (use \`${0}${CROSS_COMP} $(SUSUWU_SH_COLOR "${SUSUWU_SH_GREEN}" "--debug")\` for this)."
 		CFLAGS="${CFLAGS} ${FLAGS_RELEASE} ${CFLAGS_RELEASE}"
 		CXXFLAGS="${CXXFLAGS} ${FLAGS_RELEASE} ${CXXFLAGS_RELEASE}"
 	else
-		if [ "--debug" != "${1}" ] && [ "--debug" != "${2}" ]; then
+		if ! SUSUWU_PROCESS_PARAMS "--debug" "$@"; then
 			SUSUWU_PRINT "${SUSUWU_SH_NOTICE}" "\`${0}${CROSS_COMP}\` defaults to \`${0}${CROSS_COMP} $(SUSUWU_SH_COLOR "${SUSUWU_SH_CYAN}" "--debug")\`."
 		fi
 		SUSUWU_PRINT "${SUSUWU_SH_NOTICE}" "Use \`${0}${CROSS_COMP} $(SUSUWU_SH_COLOR "${SUSUWU_SH_GREEN}" "--release")\` to improve how fast this executes."
@@ -239,10 +248,10 @@ SUSUWU_REBUILD_OUTPUT() ( #/* Usage: `SUSUWU_REBUILD_OUTPUT "Reason to rebuild" 
 	SUSUWU_CLEAN_OUTPUT_IMPL "${1}" ", plus continue. [Use \`${0}${CROSS_COMP} $(SUSUWU_SH_COLOR "${SUSUWU_SH_GREEN}" "--clean")\` to remove plus exit.]"
 )
 SUSUWU_PROCESS_CLEAN_REBUILD() { #/* Usage: `SUSUWU_PROCESS_CLEAN_REBUILD $@` [This processes params passed to `${0}`.] */
-	if [ "--clean" = "${1}" ] || [ "--clean" = "${2}" ]; then
+	if SUSUWU_PROCESS_PARAMS "--clean" "$@"; then
 		SUSUWU_CLEAN_OUTPUT "Was called with \`${0}${CROSS_COMP} $(SUSUWU_SH_COLOR "${SUSUWU_SH_CYAN}" "--clean")\`"
 	fi
-	if [ "--rebuild" = "${1}" ] || [ "--rebuild" = "${2}" ]; then
+	if SUSUWU_PROCESS_PARAMS "--rebuild" "$@"; then
 		SUSUWU_REBUILD_OUTPUT "Was called with \`${0}${CROSS_COMP} $(SUSUWU_SH_COLOR "${SUSUWU_SH_CYAN}" "--rebuild")\`"
 	fi
 }
@@ -314,7 +323,7 @@ SUSUWU_BUILD_EXECUTABLE() { #/* Usage: ... [SUSUWU_PROCESS_MINGW $@] SUSUWU_SETU
 	elif [ 0 -eq ${SUSUWU_STATUS} ]; then
 		SUSUWU_PRINT "${SUSUWU_SH_SUCCESS}" "produced \`${BINDIR}${OUTPUT}\` ($(stat -c%s "${BINDIR}${OUTPUT}") bytes)."
 	else
-		SUSUWU_PRINT "${SUSUWU_SH_ERROR}" "\`${LD}\` returned status code ${SUSUWU_STATUS}. [If errors include \"ld... $(SUSUWU_SH_COLOR "${SUSUWU_SH_RED}" "unknown file type")\" or \"ld... $(SUSUWU_SH_COLOR "${SUSUWU_SH_RED}" "undefined symbol __asan_")*\", use \`${0}${CROSS_COMP} $(SUSUWU_SH_COLOR "${SUSUWU_SH_GREEN}" "--rebuild")\` to remove plus continue.]"
+		SUSUWU_PRINT "${SUSUWU_SH_ERROR}" "SUSUWU_BUILD_EXECUTABLE(): \`${LD}\` returned status code ${SUSUWU_STATUS}. [If errors include \"ld... $(SUSUWU_SH_COLOR "${SUSUWU_SH_RED}" "unknown file type")\" or \"ld... $(SUSUWU_SH_COLOR "${SUSUWU_SH_RED}" "undefined symbol __asan_")*\", use \`${0} ${SUSUWU_ORIGINAL_PARAMS} $(SUSUWU_SH_COLOR "${SUSUWU_SH_GREEN}" "--rebuild")\` to remove intermediate objects plus continue.]"
 	fi
 	return ${SUSUWU_STATUS}
 }
