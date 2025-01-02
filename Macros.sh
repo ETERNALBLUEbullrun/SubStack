@@ -12,6 +12,23 @@ SUSUWU_PROCESS_PARAMS() ( #/* Usage: `if SUSUWU_PROCESS_PARAMS "--param" $@;`. [
 	done
 	return 1
 )
+SUSUWU_REMOVE_PARAM() ( #/* Usage: `echo "$(SUSUWU_REMOVE_PARAM "--unwanted-param" "$@")"`. [This processes params passed to `${0}`.] */
+	PARAM=${1}; shift;
+	NEW_PARAMS=""
+	SUSUWU_REMOVE_PARAM_FOUND=1
+	for PARAM_W in "$@"; do
+		if [ "${PARAM}" != "${PARAM_W}" ]; then
+			SUSUWU_REMOVE_PARAM_FOUND=0
+			if [ -z "${NEW_PARAMS}" ]; then
+				NEW_PARAMS="${PARAM_W}"
+			elif [ -n "${NEW_PARAMS}" ]; then
+				NEW_PARAMS="${NEW_PARAMS} ${PARAM_W}" #/* TODO: spaces? */
+			fi
+		fi
+	done
+	echo "${NEW_PARAMS}"
+	return ${SUSUWU_REMOVE_PARAM_FOUND}
+)
 SUSUWU_DIR_SUFFIX_SLASH() ( #/* Usage: `OBJDIR=$(SUSUWU_ENSURE_DIR_SLASH "${OBJDIR}") */
 	DIR=${1}
 	if [ "${DIR}" = "${DIR%/}" ]; then #/* "%/" removes slash; if equal after this, original doesn't have '/'. */
@@ -171,14 +188,14 @@ SUSUWU_SETUP_CXX() { #/* Usage: ... [SUSUWU_PROCESS_MINGW $@] SUSUWU_SETUP_CXX [
 
 SUSUWU_PROCESS_RELEASE_DEBUG() { #/* Usage: `SUSUWU_PROCESS_RELEASE_DEBUG $@` [This processes params passed to `${0}`.] */
 	if SUSUWU_PROCESS_PARAMS "--release" "$@"; then
-		SUSUWU_PRINT "${SUSUWU_SH_NOTICE}" "\`${0}${CROSS_COMP} $(SUSUWU_SH_COLOR "${SUSUWU_SH_CYAN}" "--release")\` does not support profilers/debuggers (use \`${0}${CROSS_COMP} $(SUSUWU_SH_COLOR "${SUSUWU_SH_GREEN}" "--debug")\` for this)."
+		SUSUWU_PRINT "${SUSUWU_SH_NOTICE}" "SUSUWU_RELEASE_DEBUG(): \`${0} $(SUSUWU_SH_COLOR "${SUSUWU_SH_CYAN}" "--release")\` does not support profilers/debuggers (use \`${0} $(SUSUWU_REMOVE_PARAM "--release" "$@") $(SUSUWU_SH_COLOR "${SUSUWU_SH_GREEN}" "--debug")\` for this)."
 		CFLAGS="${CFLAGS} ${FLAGS_RELEASE} ${CFLAGS_RELEASE}"
 		CXXFLAGS="${CXXFLAGS} ${FLAGS_RELEASE} ${CXXFLAGS_RELEASE}"
 	else
 		if ! SUSUWU_PROCESS_PARAMS "--debug" "$@"; then
-			SUSUWU_PRINT "${SUSUWU_SH_NOTICE}" "\`${0}${CROSS_COMP}\` defaults to \`${0}${CROSS_COMP} $(SUSUWU_SH_COLOR "${SUSUWU_SH_CYAN}" "--debug")\`."
+			SUSUWU_PRINT "${SUSUWU_SH_NOTICE}" "SUSUWU_RELEASE_DEBUG(): \`${0} $*\` defaults to \`${0} $* $(SUSUWU_SH_COLOR "${SUSUWU_SH_CYAN}" "--debug")\`."
 		fi
-		SUSUWU_PRINT "${SUSUWU_SH_NOTICE}" "Use \`${0}${CROSS_COMP} $(SUSUWU_SH_COLOR "${SUSUWU_SH_GREEN}" "--release")\` to improve how fast this executes."
+		SUSUWU_PRINT "${SUSUWU_SH_NOTICE}" "SUSUWU_RELEASE_DEBUG(): \`${0} $(SUSUWU_SH_COLOR "${SUSUWU_SH_CYAN}" "--debug")\` is slow (use \`${0} $(SUSUWU_REMOVE_PARAM "--debug" "$@") $(SUSUWU_SH_COLOR "${SUSUWU_SH_GREEN}" "--release")\` to improve how fast this executes)."
 		CFLAGS="${CFLAGS} ${FLAGS_DEBUG} ${CFLAGS_DEBUG}"
 		CXXFLAGS="${CXXFLAGS} ${FLAGS_DEBUG} ${CXXFLAGS_DEBUG}"
 		if [ true = ${USE_FSAN} ]; then
@@ -241,18 +258,18 @@ SUSUWU_CLEAN_OUTPUT_IMPL() ( #/* Usage: `SUSUWU_CLEAN_OUTPUT_IMPL "Reason to cle
 	rm "${BINDIR}"*.out 2>/dev/null
 )
 SUSUWU_CLEAN_OUTPUT() { #/* Usage: `SUSUWU_REBUILD_OUTPUT "Reason to clean" */
-	SUSUWU_CLEAN_OUTPUT_IMPL "${1}" ", plus exit. [Use \`${0}${CROSS_COMP} $(SUSUWU_SH_COLOR "${SUSUWU_SH_GREEN}" "--rebuild")\` to remove plus continue.]"
+	SUSUWU_CLEAN_OUTPUT_IMPL "${1}" ", plus exit. [Use \`${0} $(SUSUWU_REMOVE_PARAM "--clean" "${SUSUWU_ORIGINAL_PARAMS}") $(SUSUWU_SH_COLOR "${SUSUWU_SH_GREEN}" "--rebuild")\` to remove plus continue.]"
 	exit 0
 }
 SUSUWU_REBUILD_OUTPUT() ( #/* Usage: `SUSUWU_REBUILD_OUTPUT "Reason to rebuild" */
-	SUSUWU_CLEAN_OUTPUT_IMPL "${1}" ", plus continue. [Use \`${0}${CROSS_COMP} $(SUSUWU_SH_COLOR "${SUSUWU_SH_GREEN}" "--clean")\` to remove plus exit.]"
+	SUSUWU_CLEAN_OUTPUT_IMPL "${1}" ", plus continue. [Use \`${0} $(SUSUWU_REMOVE_PARAM "--rebuild" "${SUSUWU_ORIGINAL_PARAMS}") $(SUSUWU_SH_COLOR "${SUSUWU_SH_GREEN}" "--clean")\` to remove plus exit.]"
 )
 SUSUWU_PROCESS_CLEAN_REBUILD() { #/* Usage: `SUSUWU_PROCESS_CLEAN_REBUILD $@` [This processes params passed to `${0}`.] */
 	if SUSUWU_PROCESS_PARAMS "--clean" "$@"; then
-		SUSUWU_CLEAN_OUTPUT "Was called with \`${0}${CROSS_COMP} $(SUSUWU_SH_COLOR "${SUSUWU_SH_CYAN}" "--clean")\`"
+		SUSUWU_CLEAN_OUTPUT "$(basename "${0}"): Was called as \`${0} $(SUSUWU_REMOVE_PARAM "--clean" "$@") $(SUSUWU_SH_COLOR "${SUSUWU_SH_CYAN}" "--clean")\`"
 	fi
 	if SUSUWU_PROCESS_PARAMS "--rebuild" "$@"; then
-		SUSUWU_REBUILD_OUTPUT "Was called with \`${0}${CROSS_COMP} $(SUSUWU_SH_COLOR "${SUSUWU_SH_CYAN}" "--rebuild")\`"
+		SUSUWU_REBUILD_OUTPUT "$(basename "${0}"): Was called as \`${0} $(SUSUWU_REMOVE_PARAM "--rebuild" "$@") $(SUSUWU_SH_COLOR "${SUSUWU_SH_CYAN}" "--rebuild")\`"
 	fi
 }
 
