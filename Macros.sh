@@ -291,7 +291,7 @@ SUSUWU_BUILD_CTAGS() ( #/* Usage: `SUSUWU_BUILD_CTAGS [-flags... --flags...] [SO
 	if command -v ctags >/dev/null; then
 		if [ -z "${1}" ] || [ -z "${2}" ]; then
 			CTAGS_DEFAULTS="-R --exclude=.git/ --exclude=*.html ."
-			SUSUWU_PRINT "${SUSUWU_SH_INFO}" "\`SUSUWU_BUILD_CTAGS()\` was called with less than 2 params; will default to \`SUSUWU_BUILD_CTAGS ${CTAGS_DEFAULTS}\`."
+			SUSUWU_PRINT "${SUSUWU_SH_NOTICE}" "\`SUSUWU_BUILD_CTAGS()\` was called with less than 2 params; will default to \`SUSUWU_BUILD_CTAGS ${CTAGS_DEFAULTS}\`."
 #shellcheck disable=SC2086
 			ctags ${CTAGS_DEFAULTS} && SUSUWU_STATUS=0
 		else
